@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
   var fileActions = {
     newWindow: function newWindow() {
-      gui.Window.open('index.html');
+      gui.Window.open('index.xhtml', { toolbar: false });
     },
 
     open: function open() {
@@ -156,5 +156,4 @@ document.addEventListener('DOMContentLoaded', function (e) {
   //   menu.popup(ev.x, ev.y);
   //   return false;
   // });
-
 });

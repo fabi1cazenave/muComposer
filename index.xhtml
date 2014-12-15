@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8" />
   <title> µComposer </title>
-  <link rel="stylesheet" type="text/css" href="css/editor-html.css" />
+  <link rel="stylesheet" type="text/css" href="css/editor.css" />
   <script type="application/javascript" src="js/menu.js"></script>
-  <script type="application/javascript" src="js/editor-frame.js"></script>
+  <script type="application/javascript" src="js/editor.js"></script>
 </head>
 <body>
 
   <div id="main">
     <form id="toolbar">
       <input id="open" type="file" accept="text/*" />
-      <input id="save" type="file" accept="text/*" nwsaveas />
+      <input id="save" type="file" accept="text/*" nwsaveas="" />
       <dl>
         <dt> block: </dt>
         <dd>
@@ -74,8 +74,8 @@
           <input type="button" value=" " data-command="subscript"   />
           <input type="button" value=" " data-command="superscript" />
         </dd>
-        <dt hidden> edit: </dt>
-        <dd hidden>
+        <dt hidden=""> edit: </dt>
+        <dd hidden="">
           <input type="button" value=" " data-command="undo" />
           <input type="button" value=" " data-command="redo" />
           |
