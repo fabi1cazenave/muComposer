@@ -1,4 +1,5 @@
-muComposer
-==========
+µComposer
+=========
 
-µComposer is a minimalistic wysiwyg HTML editor, powered by node-webkit
+A minimalistic wysiwyg HTML editor, powered by node-webkit.
+
