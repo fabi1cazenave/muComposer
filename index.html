@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title> µComposer </title>
+  <link rel="stylesheet" type="text/css" href="css/editor-html.css" />
+  <script type="application/javascript" src="js/menu.js"></script>
+  <script type="application/javascript" src="js/editor-frame.js"></script>
+</head>
+<body>
+
+  <div id="main">
+    <form id="toolbar">
+      <input id="open" type="file" accept="text/*" />
+      <input id="save" type="file" accept="text/*" nwsaveas />
+      <dl>
+        <dt> block: </dt>
+        <dd>
+          <select data-command="formatBlock">
+            <option value="" disabled="" selected=""> Format </option>
+            <option value="&lt;p&gt;"> paragraph </option>
+            <option value="&lt;h1&gt;"> heading 1 </option>
+            <option value="&lt;h2&gt;"> heading 2 </option>
+            <option value="&lt;h3&gt;"> heading 3 </option>
+            <option value="&lt;h4&gt;"> heading 4 </option>
+            <option value="&lt;h5&gt;"> heading 5 </option>
+            <option value="&lt;h6&gt;"> heading 6 </option>
+            <option value="&lt;address&gt;"> address </option>
+            <option value="&lt;pre&gt;"> preformatted </option>
+          </select>
+          |
+          <input type="button" value=" " data-command="justifyLeft"   />
+          <input type="button" value=" " data-command="justifyCenter" />
+          <input type="button" value=" " data-command="justifyRight"  />
+          <input type="button" value=" " data-command="justifyFull"   />
+          |
+          <input type="button" value=" " data-command="outdent" />
+          <input type="button" value=" " data-command="indent"  />
+          |
+          <input type="button" value=" " data-command="insertOrderedList"   />
+          <input type="button" value=" " data-command="insertUnorderedList" />
+        </dd>
+        <dt> inline: </dt>
+        <dd>
+          <select data-command="fontName">
+            <option value="" disabled="" selected=""> Font </option>
+            <option value="serif">           serif           </option>
+            <option value="sans-serif">      sans-serif      </option>
+            <option value="monospace">       monospace       </option>
+            <option value=" " disabled="">   -               </option>
+            <option value="Arial">           Arial           </option>
+            <option value="Courier New">     Courier New     </option>
+            <option value="Times New Roman"> Times New Roman </option>
+            <option value="Verdana">         Verdana         </option>
+          </select>
+          <select data-command="fontSize">
+            <option value="" disabled="" selected=""> Size </option>
+            <option value="1"> 1 </option>
+            <option value="2"> 2 </option>
+            <option value="3"> 3 </option>
+            <option value="4"> 4 </option>
+            <option value="5"> 5 </option>
+            <option value="6"> 6 </option>
+            <option value="7"> 7 </option>
+          </select>
+          <input type="button" value="-" data-command="decreaseFontSize" />
+          <input type="button" value="+" data-command="increaseFontSize" />
+          |
+          <input type="button" value=" " data-command="bold"          />
+          <input type="button" value=" " data-command="italic"        />
+          <input type="button" value=" " data-command="underline"     />
+          <input type="button" value=" " data-command="strikeThrough" />
+          |
+          <input type="button" value=" " data-command="subscript"   />
+          <input type="button" value=" " data-command="superscript" />
+        </dd>
+        <dt hidden> edit: </dt>
+        <dd hidden>
+          <input type="button" value=" " data-command="undo" />
+          <input type="button" value=" " data-command="redo" />
+          |
+          <input type="button" value=" " data-command="cut"   disabled="" />
+          <input type="button" value=" " data-command="copy"  disabled="" />
+          <input type="button" value=" " data-command="paste" disabled="" />
+          |
+          <input type="checkbox" data-command="styleWithCSS" checked="" />
+          style with CSS
+        </dd>
+      </dl>
+    </form>
+
+    <iframe id="editor"></iframe>
+  </div>
+
+  <iframe id="devtools"></iframe>
+
+</body>
+</html>

@@ -1,5 +1,5 @@
 µComposer
 =========
 
-A minimalistic wysiwyg HTML editor, powered by node-webkit.
+Minimalistic wysiwyg HTML editor, powered by node-webkit.
 
