@@ -11,10 +11,10 @@
 
   <div id="main">
     <form id="toolbar">
-      <input id="open" type="file" accept="text/*" />
-      <input id="save" type="file" accept="text/*" nwsaveas="" />
+      <input id="open" type="file" accept="text/html" />
+      <input id="save" type="file" accept="text/html" nwsaveas="" />
       <dl>
-        <dt> block: </dt>
+        <dt hidden=""> block: </dt>
         <dd>
           <select data-command="formatBlock">
             <option value="" disabled="" selected=""> Format </option>
@@ -40,7 +40,7 @@
           <input type="button" value=" " data-command="insertOrderedList"   />
           <input type="button" value=" " data-command="insertUnorderedList" />
         </dd>
-        <dt> inline: </dt>
+        <dt hidden=""> inline: </dt>
         <dd>
           <select data-command="fontName">
             <option value="" disabled="" selected=""> Font </option>

@@ -3,20 +3,14 @@ var fs  = require('fs');
 var os  = require('os');
 var OSX = (os.platform === 'darwin');
 
-var gEditorPath = '';
-// var gEditorTitle = '';
-
 document.addEventListener('DOMContentLoaded', function (e) {
-  document.getElementById('editor').src = 'blank.html';
 
   document.getElementById('open').addEventListener('change', function (e) {
-    gEditorPath = this.value;
-    document.getElementById('editor').src = this.value;
+    gEditor.open(this.value);
   });
 
   document.getElementById('save').addEventListener('change', function (e) {
-    gEditorPath = this.value;
-    fileActions.save();
+    gEditor.save(this.value);
   });
 
   function getFilePicker(id) {
@@ -35,8 +29,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
     },
 
     openURL: function openURL() {
-      gEditorPath = '';
-      document.getElementById('editor').src = 'http://localhost/me/cazenave.me/resume.html';
+      gEditor.openURL(window.prompt('Location:')); // XXX not working, why?
     },
 
     closeWindow: function closeWindow() {
@@ -44,20 +37,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
     },
 
     save: function save() {
-      if (!gEditorPath) {
-        return fileActions.saveAs();
-      }
-      gEditorDoc.body.removeAttribute('contentEditable');
-      var dt = gEditorDoc.doctype;
-      var html = "<!DOCTYPE " +
-        dt.name +
-        (dt.publicId ? ' PUBLIC "' + dt.publicId + '"' : '') +
-        (!dt.publicId && dt.systemId ? ' SYSTEM' : '') +
-        (dt.systemId ? ' "' + dt.systemId + '"' : '') +
-        '>' + os.EOL +
-        gEditorDoc.documentElement.outerHTML;
-      fs.writeFile(gEditorPath, html);
-      gEditorDoc.body.contentEditable = true;
+      gEditor.save();
     },
 
     saveAs: function saveAs() {
