@@ -2,26 +2,24 @@ var fs = require('fs');
 var os = require('os');
 
 function Editor(iframe) {
-  var _editorDoc    = null; // active editable document
-  var _activeEditor = null; // active editing host (should be <body>)
+  var editorDoc = null; // active editable document
+  var activeElt = null; // active editing host (should be <body>)
   function setActiveEditor() {
-    _activeEditor = this;
+    activeElt = this;
   }
 
-  var self = this;
   iframe.addEventListener('load', function initEditorNodes(event) {
-    _editorDoc = iframe.contentDocument;
-    _editorDoc.body.contentEditable = true;
-    var editors = _editorDoc.querySelectorAll('*[contentEditable]');
+    editorDoc = iframe.contentDocument;
+    editorDoc.body.contentEditable = true;
+    var editors = editorDoc.querySelectorAll('*[contentEditable]');
     for (var i = 0; i < editors.length; i++) {
       editors[i].onfocus = setActiveEditor.bind(editors[i]);
     }
-    _editorDoc.body.focus();
-    self._document = _editorDoc;
+    editorDoc.body.focus();
   }, false);
 
   function ExecCommand() {
-    if (!_editorDoc) return;
+    if (!editorDoc) return;
     var argVal, argStr,
         type    = this.getAttribute('type'),
         command = this.getAttribute('data-command');
@@ -42,8 +40,8 @@ function Editor(iframe) {
     }
 
     // apply command
-    _editorDoc.execCommand(command, false, argVal); // send requested action
-    if (_activeEditor) _activeEditor.focus(); // re-focus the editable element
+    editorDoc.execCommand(command, false, argVal); // send requested action
+    if (activeElt) activeElt.focus(); // re-focus the editable element
   }
 
   var buttons = document.querySelectorAll('*[data-command]');
@@ -53,29 +51,31 @@ function Editor(iframe) {
   }
   ExecCommand.bind(document.querySelector('*[data-command=styleWithCSS]'))();
 
-  /* return {
-    get iframe()   { return iframe; },
-    get document() { return _editorDoc; },
-    get editable() { return !!_editorDoc.body.contentEditable; },
-    set editable(val) {
-      if (val) {
-        _editorDoc.body.contentEditable = true;
-      } else {
-        _editorDoc.body.removeAttribute('contentEditable');
-      }
-    }
-  }; */
-  this._iframe = iframe;
-  this._document = _editorDoc;
+  this.__defineGetter__('_document', function () { return editorDoc; });
+  this.__defineGetter__('_iframe',   function () { return iframe;    });
 }
 
-Editor.prototype.setEditable = function setEditable(val) {
+Editor.prototype.__defineGetter__('editable', function getEditable() {
+  return this._document.body.contentEditable;
+});
+
+Editor.prototype.__defineSetter__('editable', function setEditable(val) {
   if (val) {
     this._document.body.contentEditable = true;
   } else {
     this._document.body.removeAttribute('contentEditable');
   }
-};
+});
+
+Editor.prototype.__defineGetter__('doctype', function getDoctype() {
+  var dt = this._document.doctype;
+  return '<!DOCTYPE ' +
+    dt.name +
+    (dt.publicId ? ' PUBLIC "' + dt.publicId + '"' : '') +
+    (!dt.publicId && dt.systemId ? ' SYSTEM' : '') +
+    (dt.systemId ? ' "' + dt.systemId + '"' : '') +
+    '>';
+});
 
 Editor.prototype.open = function open(path) {
   this.path = path;
@@ -88,21 +88,14 @@ Editor.prototype.openURL = function openURL(src) {
 };
 
 Editor.prototype.save = function save(path) {
-  this.setEditable(false);
+  this.editable = false;
   path = path || this.path;
 
-  var dt = this._document.doctype;
-  var html = "<!DOCTYPE " +
-    dt.name +
-    (dt.publicId ? ' PUBLIC "' + dt.publicId + '"' : '') +
-    (!dt.publicId && dt.systemId ? ' SYSTEM' : '') +
-    (dt.systemId ? ' "' + dt.systemId + '"' : '') +
-    '>' + os.EOL +
-    this._document.documentElement.outerHTML;
-  fs.writeFile(path, html);
+  fs.writeFile(path,
+    this.doctype + os.EOL + this._document.documentElement.outerHTML);
 
   this.path = path;
-  this.setEditable(true);
+  this.editable = true;
 };
 
 var gEditor = null;
