@@ -94,11 +94,13 @@ Editor.prototype.getClassList = function getClassList() {
 };
 
 Editor.prototype.open = function open(path) {
+  if (!path) return;
   this.path = path;
   this._iframe.src = path;
 };
 
 Editor.prototype.openURL = function openURL(src) {
+  if (!src) return;
   this.path = '';
   this._iframe.src = src;
 };
