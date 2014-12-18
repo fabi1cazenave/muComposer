@@ -12,7 +12,7 @@ function Editor(iframe) {
     editorDoc = iframe.contentDocument;
     editorDoc.body.contentEditable = true;
     var editors = editorDoc.querySelectorAll('*[contentEditable]');
-    for (var i = 0; i < editors.length; i++) {
+    for (var i = 0, l = editors.length; i < l; i++) {
       editors[i].onfocus = setActiveEditor.bind(editors[i]);
     }
     editorDoc.body.focus();
@@ -45,7 +45,7 @@ function Editor(iframe) {
   }
 
   var buttons = document.querySelectorAll('*[data-command]');
-  for (var j = 0; j < buttons.length; j++) {
+  for (var j = 0, m = buttons.length; j < m; j++) {
     buttons[j].onclick  = ExecCommand.bind(buttons[j]);
     buttons[j].onchange = ExecCommand.bind(buttons[j]);
   }
@@ -76,6 +76,22 @@ Editor.prototype.__defineGetter__('doctype', function getDoctype() {
     (dt.systemId ? ' "' + dt.systemId + '"' : '') +
     '>';
 });
+
+Editor.prototype.getClassList = function getClassList() {
+  var classes = [];
+
+  var elements = this._document.querySelectorAll('*[class]');
+  for (var i = 0, l = elements.length; i < l; i++) {
+    var cl = elements[i].classList;
+    for (var j = 0, m = cl.length; j < m; j++) {
+      if (classes.indexOf(cl[j]) < 0) {
+        classes.push(cl[j]);
+      }
+    }
+  }
+
+  return classes.sort();
+};
 
 Editor.prototype.open = function open(path) {
   this.path = path;
