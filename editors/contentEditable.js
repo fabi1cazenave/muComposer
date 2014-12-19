@@ -1,8 +1,6 @@
-var fs = require('fs');
-var os = require('os');
-
 function Editor(iframe) {
   var editorDoc = null; // active editable document
+
   var activeElt = null; // active editing host (should be <body>)
   function setActiveEditor() {
     activeElt = this;
@@ -51,24 +49,24 @@ function Editor(iframe) {
   }
   ExecCommand.bind(document.querySelector('*[data-command=styleWithCSS]'))();
 
-  this.__defineGetter__('_document', function () { return editorDoc; });
-  this.__defineGetter__('_iframe',   function () { return iframe;    });
+  this.__defineGetter__('document', function () { return editorDoc; });
+  this.__defineGetter__('iframe',   function () { return iframe;    });
 }
 
 Editor.prototype.__defineGetter__('editable', function getEditable() {
-  return this._document.body.contentEditable;
+  return this.document.body.contentEditable;
 });
 
 Editor.prototype.__defineSetter__('editable', function setEditable(val) {
   if (val) {
-    this._document.body.contentEditable = true;
+    this.document.body.contentEditable = true;
   } else {
-    this._document.body.removeAttribute('contentEditable');
+    this.document.body.removeAttribute('contentEditable');
   }
 });
 
 Editor.prototype.__defineGetter__('doctype', function getDoctype() {
-  var dt = this._document.doctype;
+  var dt = this.document.doctype;
   return '<!DOCTYPE ' +
     dt.name +
     (dt.publicId ? ' PUBLIC "' + dt.publicId + '"' : '') +
@@ -80,7 +78,7 @@ Editor.prototype.__defineGetter__('doctype', function getDoctype() {
 Editor.prototype.getClassList = function getClassList() {
   var classes = [];
 
-  var elements = this._document.querySelectorAll('*[class]');
+  var elements = this.document.querySelectorAll('*[class]');
   for (var i = 0, l = elements.length; i < l; i++) {
     var cl = elements[i].classList;
     for (var j = 0, m = cl.length; j < m; j++) {
@@ -96,13 +94,13 @@ Editor.prototype.getClassList = function getClassList() {
 Editor.prototype.open = function open(path) {
   if (!path) return;
   this.path = path;
-  this._iframe.src = path;
+  this.iframe.src = path;
 };
 
 Editor.prototype.openURL = function openURL(src) {
   if (!src) return;
   this.path = '';
-  this._iframe.src = src;
+  this.iframe.src = src;
 };
 
 Editor.prototype.save = function save(path) {
@@ -110,7 +108,7 @@ Editor.prototype.save = function save(path) {
   path = path || this.path;
 
   fs.writeFile(path,
-    this.doctype + os.EOL + this._document.documentElement.outerHTML);
+    this.doctype + EOL + this.document.documentElement.outerHTML);
 
   this.path = path;
   this.editable = true;
@@ -119,6 +117,6 @@ Editor.prototype.save = function save(path) {
 var gEditor = null;
 window.addEventListener('DOMContentLoaded', function() {
   gEditor = new Editor(document.getElementById('editor'));
-  gEditor.open('blank.html');
+  gEditor.open(BLANK_DOC);
 });
 

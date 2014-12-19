@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title> µComposer </title>
+  <script type="application/javascript" src="ui/menu.js"></script>
+  <link rel="stylesheet" type="text/css" href="ui/style.css" />
+  <!-- specific to CKEditor -->
+  <link rel="stylesheet" type="text/css" href="editors/ckeditor.css" />
+  <script type="application/javascript" src="editors/ckeditor/ckeditor.js"></script>
+  <script type="application/javascript" src="editors/ckeditor.js"></script>
+</head>
+<body>
+  <div id="main">
+    <form id="toolbar">
+      <input id="open" type="file" accept="text/html, application/xhtml+xml" />
+      <input id="save" type="file" accept="text/html, application/xhtml+xml" nwsaveas />
+    </form>
+    <!-- the editable iframe will come here:
+      - <div class="cke cke_reset" role="application">
+      -   <span class="cke_voice_label">Rich Text Editor</span>
+      -   <div class="cke_inner cke_reset" role="presentation">
+      -     <span class="cke_top cke_reset_all" role="presentation">…</span>
+      -     <div class="cke_contents cke_reset" role="presentation">
+      -       <textarea class="cke_source cke_reset" role="textbox"></textarea>
+      -       <span class="cke_voice_label">Press ALT 0 for help</span>
+      -       <iframe class="cke_wysiwyg_frame cke_reset"></iframe>
+      -     </div>
+      -     <span class="cke_bottom cke_reset_all" role="presentation">…</span>
+      -   </div>
+      - </div>
+      -->
+  </div>
+  <iframe id="devtools"></iframe>
+  <!-- CKEditor will also append its pop-up panels here:
+    - <div class="cke cke_panel cke_reset_all">…</div>
+    -->
+</body>
+</html>

@@ -1,6 +1,7 @@
 {
   "loadEagerly": [
-    "./js/*.js"
+    "./editors/*.js",
+    "./ui/*.js"
   ],
   "plugins": {
     "node": {}
