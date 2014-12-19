@@ -1,0 +1,37 @@
+/**
+ * Make the default theme (moono) full-height.
+ * This might be silly, since there's a "Maximize" button... well, too late.
+ * Note: all those "!important" are required here because the theme
+ *       stylesheet is activated dynamically when the page is loaded.
+ */
+
+.cke_reset {
+  box-sizing: border-box !important;
+}
+
+#main > .cke {
+  /*
+  border-top: none !important;
+  border-bottom: none !important;
+   */
+  height: 100% !important;
+}
+
+.cke_inner {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column;
+}
+
+.cke_contents,
+.cke_contents iframe,
+.cke_contents textarea {
+  display: flex !important;
+  flex-direction: column;
+  flex: 1;
+}
+
+.cke_resizer {
+  display: none;
+}
+

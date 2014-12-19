@@ -1,6 +1,14 @@
+var EDITOR_UI = 'contentEditable.xhtml';
+// var EDITOR_UI = 'ckeditor.html';
+
+var BLANK_DOC = 'templates/blank.html';
+// var BLANK_DOC = 'templates/blank.xhtml';
+
 var gui = require('nw.gui');
 var fs  = require('fs');
 var os  = require('os');
+
+var EOL = os.EOL;
 var OSX = (os.platform === 'darwin');
 
 document.addEventListener('DOMContentLoaded', function (e) {
@@ -21,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
   var fileActions = {
     newWindow: function newWindow() {
-      gui.Window.open('index.xhtml', { toolbar: false });
+      gui.Window.open(EDITOR_UI, { toolbar: false });
     },
 
     open: function open() {
@@ -108,14 +116,14 @@ document.addEventListener('DOMContentLoaded', function (e) {
         var devtools = document.getElementById('devtools');
         var checked = this.checked;
         var win = gui.Window.get();
-        win.showDevTools('editor', true);
+        win.showDevTools(gEditor.iframe, true);
         win.on('devtools-opened', function(url) {
           if (checked) {
             devtools.src = url;
             devtools.style.display = 'block';
           } else {
             devtools.style.display = 'none';
-            devtools.src = 'blank.html';
+            devtools.src = BLANK_DOC;
           }
         });
       }

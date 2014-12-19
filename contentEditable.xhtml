@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <title> µComposer </title>
-  <link rel="stylesheet" type="text/css" href="css/editor.css" />
-  <script type="application/javascript" src="js/menu.js"></script>
-  <script type="application/javascript" src="js/editor.js"></script>
+  <script type="application/javascript" src="ui/menu.js"></script>
+  <link rel="stylesheet" type="text/css" href="ui/style.css" />
+  <!-- specific to the 'contentEditable' editor -->
+  <link rel="stylesheet" type="text/css" href="editors/contentEditable.css" />
+  <script type="application/javascript" src="editors/contentEditable.js"></script>
 </head>
 <body>
 
@@ -90,7 +92,7 @@
     </form>
 
     <!-- using a sandboxed iframe to disable JS in the edited document -->
-    <iframe id="editor" sandbox=""></iframe>
+    <iframe id="editor" sandbox="allow-same-origin"></iframe>
   </div>
 
   <iframe id="devtools"></iframe>
