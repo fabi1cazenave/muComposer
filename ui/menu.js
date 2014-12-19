@@ -1,15 +1,12 @@
-var EDITOR_UI = 'contentEditable.xhtml';
-// var EDITOR_UI = 'ckeditor.html';
-
-var BLANK_DOC = 'templates/blank.html';
-// var BLANK_DOC = 'templates/blank.xhtml';
-
 var gui = require('nw.gui');
 var fs  = require('fs');
 var os  = require('os');
 
 var EOL = os.EOL;
 var OSX = (os.platform === 'darwin');
+
+var EDITOR_UI = gui.App.manifest.main;  // ckeditor.html | contentEditable.xhtml
+var BLANK_DOC = gui.App.manifest.blank; // templates/blank.[x]html
 
 document.addEventListener('DOMContentLoaded', function (e) {
 

@@ -1,7 +1,7 @@
 function Editor(event) {
   var _ckeditor = event.editor;
   var iframe = _ckeditor.container.$.querySelector('.cke_wysiwyg_frame');
-  iframe.setAttribute('sandbox', '');
+  // iframe.setAttribute('sandbox', '');
 
   this.__defineGetter__('_ckeditor', function () {
     return _ckeditor;
@@ -83,8 +83,7 @@ window.addEventListener('DOMContentLoaded', function() {
   });
   CKEDITOR.on('instanceReady', function (event) {
     gEditor = new Editor(event);
-    // gEditor.iframe.src = 'http://localhost/me/cazenave.me/resume.html';
-    gEditor.open(BLANK_DOC);
+    // gEditor.open(BLANK_DOC);
   });
 });
 
